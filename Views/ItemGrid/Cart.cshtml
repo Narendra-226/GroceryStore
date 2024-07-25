@@ -1,0 +1,143 @@
+﻿@*
+Date: 2024-07-15
+Author: Sruthi Mullaguri
+Description: designed UI for the cart page.
+*@
+@model IEnumerable<NK.Models.CartItem>
+
+@{
+    ViewData["Title"] = "Cart";
+    Layout = null; // Disable layout for this view
+
+    // Calculate total price
+    decimal totalPrice = Model.Sum(item => item.Item.ItemPrice * item.Quantity);
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+            background: #f2f6fc;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .cart-container {
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            margin: 40px auto;
+        }
+
+            .cart-container h2 {
+                margin-bottom: 30px;
+                color: #333;
+                text-align: center;
+            }
+
+            .cart-container .table {
+                margin-bottom: 30px;
+            }
+
+            .cart-container .form-group label {
+                font-weight: bold;
+                color: #555;
+            }
+
+            .cart-container .form-control {
+                height: 50px;
+                border-radius: 10px;
+                border: 1px solid #ced4da;
+            }
+
+            .cart-container .btn {
+                width: 100%;
+                height: 50px;
+                border-radius: 10px;
+                background: #007bff;
+                border: none;
+                color: white;
+                font-size: 18px;
+                font-weight: bold;
+            }
+
+                .cart-container .btn:hover {
+                    background: #0056b3;
+                }
+
+            .cart-container .cart-total {
+                text-align: right;
+                font-size: 18px;
+                font-weight: bold;
+                color: #333;
+            }
+
+            .cart-container .datetime-picker {
+                height: 50px;
+                border-radius: 10px;
+                border: 1px solid #ced4da;
+                padding: 10px;
+                font-size: 16px;
+            }
+    </style>
+    <title>@ViewData["Title"]</title>
+</head>
+<body>
+    <div class="cart-container">
+        <h2>Your Cart</h2>
+
+        <table class="table table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Item</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Item.ItemName</td>
+                        <td>$@item.Item.ItemPrice</td>
+                        <td>@item.Quantity</td>
+                        <td>$@(item.Item.ItemPrice * item.Quantity)</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <div class="cart-total">
+            Total: $@totalPrice
+        </div>
+
+        <form asp-action="Checkout" method="post">
+            <div class="form-group">
+                <label for="dateTime">Select your expected Pickup date and time</label>
+                <input type="datetime-local" name="dateTime" class="form-control datetime-picker" id="dateTime" required />
+            </div>
+            <button type="submit" class="btn btn-primary" onclick="abc">Checkout</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('dateTime').min = new Date().toISOString().slice(0, 16);
+        function validateForm() {
+            var dateTimeValue = document.getElementById('dateTime').value;
+            if (!dateTimeValue) {
+                alert("Please select a date and time.");
+                return false; // Prevent form submission
+            }
+            return true; // Allow form submission
+        }
+        
+    </script>
+</body>
+</html>

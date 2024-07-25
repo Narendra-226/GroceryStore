@@ -1,0 +1,116 @@
+﻿@*
+Date: 2024-07-12
+Author: Likitha Ratna Chakka
+Description: Redesigned UI for the Orders Login page.
+*@
+@model IEnumerable<NK.Models.OrderGroupViewModel>
+
+@{
+    ViewData["Title"] = "Orders";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+            background: #f2f6fc;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .orders-container {
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            max-width: 900px;
+            margin: 40px auto;
+        }
+
+            .orders-container h2 {
+                margin-bottom: 30px;
+                color: #333;
+                text-align: center;
+            }
+
+            .orders-container h3 {
+                margin-top: 20px;
+                color: #333;
+            }
+
+            .orders-container h4 {
+                color: #555;
+            }
+
+            .orders-container .table {
+                margin-bottom: 20px;
+            }
+
+                .orders-container .table thead th {
+                    background-color: #007bff;
+                    color: white;
+                    font-weight: bold;
+                }
+
+                .orders-container .table tbody tr {
+                    border-bottom: 1px solid #dee2e6;
+                }
+
+                .orders-container .table tbody td {
+                    vertical-align: middle;
+                }
+
+            .orders-container .total-price {
+                font-size: 18px;
+                font-weight: bold;
+                color: #333;
+                margin-top: 10px;
+                text-align: right;
+            }
+    </style>
+    <title>@ViewData["Title"]</title>
+</head>
+<body>
+    <div class="orders-container">
+        <h2>@ViewData["Title"]</h2>
+
+        @foreach (var orderGroup in Model)
+        {
+            <div class="order-group">
+                <h3>Customer: @orderGroup.CustomerName</h3>
+                <h4>Pickup Time: @orderGroup.PickupTime</h4>
+
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Item Name</th>
+                            <th>Item Count</th>
+                            <th>Item Cost</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in orderGroup.Items)
+                        {
+                            <tr>
+                                <td>@item.ItemName</td>
+                                <td>@item.ItemCount</td>
+                                <td>$@item.ItemCost</td>
+                                <td>$@(item.ItemCount * item.ItemCost)</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+                <div class="total-price">
+                    Total for Order: $@orderGroup.Items.Sum(i => i.ItemCount * i.ItemCost)
+                </div>
+            </div>
+        }
+    </div>
+</body>
+</html>

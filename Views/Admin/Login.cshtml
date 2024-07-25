@@ -1,0 +1,100 @@
+﻿@*
+Date: 2024-07-12
+Author: Likitha Ratna Chakka
+Description: Redesigned UI for the Admin Login page.
+*@
+@model NK.Models.LoginViewModel
+
+@{
+    ViewData["Title"] = "Login";
+    Layout = null; // Disable layout for this view
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+            background: #f2f6fc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .login-container {
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+
+            .login-container h2 {
+                margin-bottom: 30px;
+                color: #333;
+                text-align: center;
+            }
+
+            .login-container .form-group {
+                margin-bottom: 20px;
+            }
+
+            .login-container .form-control {
+                height: 50px;
+                border-radius: 10px;
+                border: 1px solid #ced4da;
+            }
+
+            .login-container .btn {
+                width: 100%;
+                height: 50px;
+                border-radius: 10px;
+                background: #007bff;
+                border: none;
+                color: white;
+                font-size: 18px;
+                font-weight: bold;
+            }
+
+                .login-container .btn:hover {
+                    background: #0056b3;
+                }
+
+            .login-container .form-group label {
+                font-weight: bold;
+                color: #555;
+            }
+
+            .login-container .form-group i {
+                margin-right: 10px;
+                color: #007bff;
+            }
+    </style>
+    <title>@ViewData["Title"]</title>
+</head>
+<body>
+    <div class="login-container">
+        <h2>@ViewData["Title"]</h2>
+        <form method="post" asp-action="Login">
+            <div class="form-group">
+                <label asp-for="Username"><i class="fas fa-user"></i>Username</label>
+                <input asp-for="Username" class="form-control" placeholder="Enter your username" />
+                <span asp-validation-for="Username" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Password"><i class="fas fa-lock"></i>Password</label>
+                <input asp-for="Password" type="password" class="form-control" placeholder="Enter your password" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-primary">Login</button>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,68 @@
+﻿@*
+Date: 2024-07-12
+Author: Sruthi Mullaguri
+Description: designed UI for the checkout page.
+*@
+@{
+    ViewData["Title"] = "Checkout";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+            background: #f2f6fc;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .checkout-container {
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 40px auto;
+            text-align: center;
+        }
+
+            .checkout-container h2 {
+                margin-bottom: 20px;
+                color: #333;
+            }
+
+            .checkout-container p {
+                font-size: 18px;
+                color: #555;
+            }
+
+            .checkout-container .btn {
+                margin-top: 20px;
+                width: 100%;
+                height: 50px;
+                border-radius: 10px;
+                background: #007bff;
+                border: none;
+                color: white;
+                font-size: 18px;
+                font-weight: bold;
+            }
+
+                .checkout-container .btn:hover {
+                    background: #0056b3;
+                }
+    </style>
+    <title>@ViewData["Title"]</title>
+</head>
+<body>
+    <div class="checkout-container">
+        <h2>Order Confirmed!</h2>
+        <p>Your order has been placed successfully. Thank you for shopping with us!</p>
+        <a href="/ItemGrid/Shop" class="btn btn-primary">Return to Home</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,121 @@
+﻿@*
+Date: 2024-07-18
+Author: Shyam Rahul Chennupati
+Description: designed UI for the Shopping Page.
+*@
+@model IEnumerable<NK.Models.ItemViewModel>
+
+@{
+    ViewData["Title"] = "Shop";
+}
+
+<style>
+    body {
+        background-color: #f8f9fa; /* Light gray background */
+        font-family: Arial, sans-serif; /* Change the font */
+        margin: 0; /* Remove default margin */
+    }
+
+    .custom-navbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background-color: #ffffff; /* White background */
+        border-bottom: 1px solid #dee2e6; /* Bottom border */
+        padding: 10px 20px; /* Padding for the navbar */
+    }
+
+    .navbar-brand {
+        font-size: 1.5rem; /* Larger font size for the brand */
+    }
+
+    .search-form {
+        flex: 1; /* Allow form to grow and fill the space between brand and cart */
+        display: flex;
+        justify-content: center;
+    }
+
+    .form-control {
+        display: inline-block; /* Inline for better alignment */
+        width: auto; /* Adjust width for better placement */
+    }
+
+    .btn-cart {
+        margin-left: 10px; /* Space between button and search */
+    }
+
+    .container {
+        padding: 20px;
+    }
+
+    .card {
+        border: 1px solid #dee2e6; /* Border color */
+        border-radius: 0.25rem; /* Rounded corners */
+    }
+
+    .card-img-top {
+        border-top-left-radius: 0.25rem;
+        border-top-right-radius: 0.25rem;
+    }
+
+    .card-body {
+        background-color: #ffffff; /* White background for the card body */
+        color: #495057; /* Darker text color for readability */
+    }
+
+    .card-title {
+        color: #007bff; /* Blue color for card title */
+    }
+
+    .btn-primary {
+        background-color: #007bff; /* Blue background for the button */
+        border-color: #007bff; /* Blue border for the button */
+    }
+
+        .btn-primary:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+            border-color: #004085; /* Darker blue border on hover */
+        }
+
+    .form-group {
+        margin-bottom: 20px; /* Spacing between form elements */
+    }
+</style>
+
+<div class="custom-navbar">
+    <a class="navbar-brand" href="#">Eagle Stop</a>
+    <div class="search-form">
+        <form asp-action="Shop" method="get">
+            <input class="form-control" type="search" name="searchString" value="@ViewData["CurrentFilter"]" placeholder="Search for items..." aria-label="Search" />
+            <button class="btn btn-primary" type="submit">Search</button>
+        </form>
+    </div>
+    <a href="/ItemGrid/Cart" class="btn btn-secondary btn-cart">Go To Cart</a>
+</div>
+
+<div class="container">
+    
+
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-md-3">
+                <div class="card mb-4 shadow-sm">
+                    <img class="card-img-top" src="@item.ItemImageUrl" alt="@item.ItemName" style="height: 200px; width: 100%; display: block;">
+                    <div class="card-body">
+                        <h5 class="card-title">@item.ItemName</h5>
+                        <p class="card-text">Price: $@item.ItemPrice</p>
+                        <p class="card-text">Quantity: @item.ItemQuantity</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <form asp-action="AddToCart" method="post">
+                                <input type="hidden" name="itemId" value="@item.ItemId" />
+                                <input type="number" name="quantity" value="1" min="1" class="form-control" style="width: 70px; display: inline;" />
+                                <button type="submit" class="btn btn-sm btn-primary">Add to Cart</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
